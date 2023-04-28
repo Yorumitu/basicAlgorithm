@@ -14,12 +14,29 @@ package sortingAlgorithm.Top10Sorting;
  *  希尔排序代码其实非常简单(相比对堆排序)，理解起来也不难，就用增量来将数组进行分隔，直到增量为1。底层干的还是插入排序干的活～
  */
 public class ShellSort {
-    public static void shellSort() {
+    public static void shellSort(int[] arrays) {
+        //增量每次都/2
+        for (int step = arrays.length / 2; step > 0; step /= 2) {
+
+            //从增量那组开始进行插入排序，直至完毕
+            for (int i = step; i < arrays.length; i++) {
+
+                int j = i;
+                int temp = arrays[j];
+
+                // j - step 就是代表与它同组隔壁的元素
+                while (j - step >= 0 && arrays[j - step] > temp) {
+                    arrays[j] = arrays[j - step];
+                    j = j - step;
+                }
+                arrays[j] = temp;
+            }
+        }
 
     }
     public static void main(String[] args) {
         int[] arrays = {2, 3, 1, 4, 3, 5, 1, 6, 1, 2, 3, 7, 2, 3};
-        shellSort();
+        shellSort(arrays);
         for (int i: arrays) {
             System.out.println(i);
         }
